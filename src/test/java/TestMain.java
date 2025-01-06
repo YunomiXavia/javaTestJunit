@@ -1,27 +1,43 @@
 import org.example.Main;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestMain {
+
     @Test
-    public void testSum() {
+    public void testCalculateSum() {
         Main calculator = new Main();
 
-        // Test case 1: Tính tổng từ 1 đến 5, kết quả là 15 (1+2+3+4+5)
-        int result = calculator.calculateSum(5);
-        assertEquals(15, result);
+        // Kiểm tra tổng các số từ 1 đến 10
+        assertEquals(55, calculator.calculateSum(10));
 
-        // Test case 2: Tính tổng từ 1 đến 10, kết quả là 55 (1+2+3+...+10)
-        result = calculator.calculateSum(10);
-        assertEquals(55, result);
+        // Kiểm tra tổng các số từ 1 đến 5
+        assertEquals(15, calculator.calculateSum(5));
 
-        // Test case 3: Tính tổng từ 1 đến 0, kết quả là 0
-        result = calculator.calculateSum(0);
-        assertEquals(0, result);
+        // Kiểm tra tổng các số từ 1 đến 0 (kết quả là 0)
+        assertEquals(0, calculator.calculateSum(0));
 
-        // Test case 4: Tính tổng từ 1 đến 1, kết quả là 1
-        result = calculator.calculateSum(1);
-        assertEquals(1, result);
+        // Kiểm tra tổng các số từ 1 đến 1 (kết quả là 1)
+        assertEquals(1, calculator.calculateSum(1));
+    }
+
+    @Test
+    public void testCalculateSumWithNegativeNumber() {
+        Main calculator = new Main();
+
+        // Kiểm tra khi số âm được đưa vào, mong đợi IllegalArgumentException
+        assertThrows(IllegalArgumentException.class, () -> {
+            calculator.calculateSum(-5);
+        });
+    }
+
+    @Test
+    public void testCalculateSumWithInvalidLoop() {
+        Main calculator = new Main();
+
+        // Kiểm tra khi vòng lặp bị sai (n < i)
+        int result = calculator.calculateSum(0);
+        assertEquals(0, result);  // Vòng lặp không chạy vì i > n
     }
 }
